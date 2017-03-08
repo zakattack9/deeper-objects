@@ -39,12 +39,35 @@ var preview = {
 * Return 	isEnabled (string)
 */
 
+function retrieve(pre){
+	var isEnabled = "";
+	for(var key in pre){
+		if(key === "enabled"){
+			isEnabled += pre[key]; //+= used to concat the data
+			console.log(typeof isEnabled);
+		}
+	}
+	return isEnabled;
+}
+console.log(retrieve(preview)); //console log the invoking of the function to show return
+
 /*
 * Function that changes the value from the key "enabled" to true, and returns 
 * the value from the key "enabled"
 *
 * Return 	value from key enabled (boolean)
 */
+
+function change(pre){
+  var toTrue;
+  for(var key in pre){
+    if(key === "enabled"){
+      toTrue = true;
+    }
+  }
+  return toTrue;
+}
+console.log(change(preview));
 
 /*
 * Function that retrieves the urls only from the key "resolutions" 
@@ -53,6 +76,25 @@ var preview = {
 * Return 	urls (array)
 */
 
+function retrieveURL(pre){
+	var urls = [];
+	//loops through preview
+	for(var key in pre){
+		
+		//checks for "images", in preview (object)
+		if(key === "images"){
+			
+			//loops through "images" using a for loop since it is an array
+			for(var i = 0; i < length; i++){
+				if(i === "resolutions"){
+          console.log("yeet");
+        }
+      }
+		}
+	}
+	return urls;
+}
+console.log(retrieveURL(preview));
 /*
 * Function that retrieves the first nested key and value pairing
 * from the values of "images", stores them in a new object called 

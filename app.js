@@ -27,7 +27,8 @@ function accessObjectInArray(arr){
       //No you can not.
 
     //Iterate through the key:value pairings and print all the keys and their values
-	    for(var key in arr){
+	    //console.log("line30");
+      for(var key in arr){
 	    	console.log(arr[key]);
 	    }
 
@@ -64,13 +65,15 @@ function accessArrayInObject(obj){
 		//console.log(obj);
 
 	//Iterate through the object
+    console.log("line68");
     for(var key in obj){
     	console.log(key);
     	console.log(obj[key]);
     
     //Create a conditional to check if the key is "cars"
     	if(key === "cars"){
-    		console.log(obj[key]);
+    		console.log("line75");
+        console.log(obj[key]);
 
       //Iterate through and print the values in the key "cars"
     		for(var carValues in obj[key]){
