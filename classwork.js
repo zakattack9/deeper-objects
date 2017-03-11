@@ -59,13 +59,13 @@ console.log(retrieve(preview)); //console log the invoking of the function to sh
 */
 
 function change(pre){
-  var toTrue;
   for(var key in pre){
     if(key === "enabled"){
-      toTrue = true;
+      pre[key] = true;
     }
   }
-  return toTrue;
+  return pre[key];
+  //or return pre.enabled
 }
 console.log(change(preview));
 
@@ -83,16 +83,38 @@ function retrieveURL(pre){
 		
 		//checks for "images", in preview (object)
 		if(key === "images"){
-			
+			//console.log(pre[key]);
+
 			//loops through "images" using a for loop since it is an array
-			for(var i = 0; i < length; i++){
-				if(i === "resolutions"){
-          console.log("yeet");
-        }
-      }
+			//console.log(pre.images[0].resolutions);
+  		var imgLength = pre[key].length
+			for(var i = 0; i < imgLength; i++){
+				//console.log(pre[key][i]);
+				
+				for(var reso in pre[key][i]){
+					
+					if(reso === "resolutions"){
+					  //console.log(pre[key][i][reso]);
+					  var resoLength = pre[key][i][reso].length;
+						
+						for(var x = 0; x < resoLength; x++){
+
+							for(var link in pre[key][i][reso][x]){
+								if(link === "url"){
+
+								}					
+							}
+						}
+					}
+				}
+			}
+			/*for(var i = 0; i < pre[key][0].resolutions.length; i++){
+				  var resolutionArray = pre[key][0].resolutions[i];
+          urls.push(resolutionArray);    
+      }*/
 		}
 	}
-	return urls;
+	//return urls;
 }
 console.log(retrieveURL(preview));
 /*
