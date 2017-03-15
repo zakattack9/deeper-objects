@@ -76,47 +76,77 @@ console.log(change(preview));
 * Return 	urls (array)
 */
 
+//This was done in the most complex way to understand each step to iterate to a specific value in nested objects/arrays
 function retrieveURL(pre){
+	//array variable that urls will be pushed to later
 	var urls = [];
-	//loops through preview
+	
+	//loops through variable preview using for/in loop
 	for(var key in pre){
 		
-		//checks for "images", in preview (object)
+		//finds the array named "images", this means "enabled" is ignored
 		if(key === "images"){
 			//console.log(pre[key]);
-
-			//loops through "images" using a for loop since it is an array
-			//console.log(pre.images[0].resolutions);
-  		var imgLength = pre[key].length
+			
+			//variable containing the length of array "images"	
+      var imgLength = pre[key].length
+      //console.log(imgLength);
+      
+      //for loop used becuase "images" is an array; loops through values in "images"
 			for(var i = 0; i < imgLength; i++){
 				//console.log(pre[key][i]);
-				
+			
+				//because "images" contains an object, for loop will only run once; for/in loop used to iterate through values of that object
 				for(var reso in pre[key][i]){
-					
+			
+					//loop through the object in array "images", conditional statement is used to find the key, "resolutions" within it
 					if(reso === "resolutions"){
 					  //console.log(pre[key][i][reso]);
-					  var resoLength = pre[key][i][reso].length;
+					    
+					  //length of resolution array is stored in variable "resoLength"
+            var resoLength = pre[key][i][reso].length;
+            //console.log(resoLength);
 						
+						//once for/in loop finds "resolutions", for loop is used to iterate through the values of "resolutions", it will run twice
 						for(var x = 0; x < resoLength; x++){
-
+							//console.log(pre[key][i][reso][x]);
+						
+							//becuase there are two objects in resolutions, for/in loop is used again to iterate through the values of each object
 							for(var link in pre[key][i][reso][x]){
+						
+								//checks for the key "url", its value contains the actual url that needs to be exctracted
 								if(link === "url"){
-
+									//console.log(pre[key][i][reso][x][link]);
+						
+									//once the "url" is found in both objects the value from the key is pushed to the array "urls"
+                  urls.push(pre[key][i][reso][x][link]);                        
 								}					
 							}
 						}
 					}
 				}
 			}
-			/*for(var i = 0; i < pre[key][0].resolutions.length; i++){
-				  var resolutionArray = pre[key][0].resolutions[i];
-          urls.push(resolutionArray);    
-      }*/
 		}
 	}
-	//return urls;
+	//all iterations whether it be through an object or array is shown above
+	//this is also the most dynamic method, meaning if any values were to be added to any part of the array or object, this function will only return the URLs in the array
+	return urls;
+
+	/* The method below is a shorter version above but does not show each iteration
+	for(var key in pre){
+		
+		//checks for "images", in preview (object)
+		if(key === "images"){
+			for(var i = 0; i < pre[key][0].resolutions.length; i++){
+				  var resolutionArray = pre[key][0].resolutions[i];
+          urls.push(resolutionArray);    
+      }
+		}
+	}
+	*/
 }
 console.log(retrieveURL(preview));
+
 /*
 * Function that retrieves the first nested key and value pairing
 * from the values of "images", stores them in a new object called 
@@ -129,3 +159,23 @@ console.log(retrieveURL(preview));
 *
 * Return 	allKeyValuePairs (object)
 */
+
+function nestedKey(pre){
+  var allKeyValuePairs = {
+	keys: [],
+	values: []
+  };
+
+  for(var key in pre){
+    if(key === "images"){
+      for(var i = 0; i < pre[key].length; i++){
+        for(var nestedPairs in pre[key][i]){
+          allKeyValuePairs.keys.push(nestedPairs);
+          allKeyValuePairs.values.push(pre[key][i][nestedPairs]);
+        }
+      }
+    }
+  }
+  return allKeyValuePairs;
+}
+console.log(nestedKey(preview));
